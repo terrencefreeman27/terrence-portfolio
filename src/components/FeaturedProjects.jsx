@@ -142,7 +142,7 @@ export default function FeaturedProjects() {
           index="01"
           eyebrow="Work"
           title="Featured projects"
-          description="Two projects, each treated as a real case study rather than a portfolio card — one where the infrastructure decisions matter more than the app in front of them, the other a real client site shipped end to end."
+          description="Three projects, each treated as a real case study rather than a portfolio card — one where the infrastructure decisions matter more than the app in front of them, a real client site shipped end to end, and an MVP architecture-planning tool built to show its work."
         />
 
         {projects.map((project) => (

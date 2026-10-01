@@ -195,6 +195,87 @@ export const projects = [
       ],
     },
   },
+  {
+    slug: 'aws-architecture-assistant',
+    name: 'AWS Architecture Design Assistant',
+    tagline:
+      'An MVP workbench that turns plain-language business requirements into a reviewable AWS architecture plan and diagram — asking follow-up questions instead of guessing.',
+    summary:
+      'Built as an MVP on 2026-10-01, the assistant collects requirements, asks follow-up questions when something important is missing, and only then produces a structured plan: components, data flow, assumptions, Well-Architected considerations, alternatives, and an SVG-exportable diagram. Plans come from a deterministic demo planner covering three sample scenarios; output is schema-validated, limited to a 41-service catalog, and cites only a curated registry of official AWS documentation. It is a planning aid, not a provisioning tool — it never touches an AWS account and never calls its plans production-ready.',
+    // 'in-progress' with no demo link until the hosted demo works: as of
+    // 2026-10-01 the Vercel deployment loads but plan generation fails (its
+    // /api routes return 404), and the fix is not yet on the repo's main
+    // branch. Once it is verified live, set status to 'live-demo', set
+    // links.demo to 'https://aws-architecture-assistant.vercel.app/', and
+    // update the 'status-limitations' section below.
+    status: 'in-progress',
+    stack: [
+      'React',
+      'Vite',
+      'TypeScript',
+      'Node.js',
+      'Express',
+      'Zod',
+      'Mermaid',
+      'Vitest',
+      'Playwright',
+      'AWS Well-Architected',
+    ],
+    links: {
+      demo: null,
+      repo: 'https://github.com/terrencefreeman27/aws-architecture-assistant',
+    },
+    heroImage: null,
+    caseStudy: {
+      sections: [
+        {
+          id: 'overview',
+          title: 'Overview',
+          body: "The AWS Architecture Design Assistant is for someone who understands their business problem but not AWS. You describe the system you need — its purpose, existing systems, expected usage, data sensitivity, AWS Region, availability needs, budget posture, and how your team operates — and the assistant either asks focused follow-up questions or returns a reviewable architecture plan. It's an MVP, built on 2026-10-01: a React/Vite/TypeScript workbench and an Express/TypeScript API that share a single TypeScript planning pipeline. It never creates AWS resources and never asks for AWS credentials, and every plan is presented as a starting point for review, not a finished design.",
+        },
+        {
+          id: 'how-it-works',
+          title: 'How it works',
+          body: "Requirements come first. A completeness meter shows which required answers are still missing, and while any are, the assistant returns follow-up questions — each with the reason it matters — instead of guessing at an architecture. Once requirements are complete, the plan lists the selected AWS components and what each does in the design, a step-by-step data flow, assumptions (each linked to the requirement you'd edit to correct it), open questions, security, reliability, performance, operations, and cost considerations, at least one alternative with its tradeoffs, and a high-level implementation sequence. Plans are produced by a deterministic demo planner — rules and templates, not a language model — covering three reviewed patterns, each with a one-click sample: a basic web application, an integration between existing systems (CRM to on-premises ERP), and an AI knowledge assistant. Editing a requirement marks the plan stale until it's regenerated, and the result visibly changes: saying the team already runs containers, for example, turns the serverless web-app design into ALB + ECS Fargate + RDS. Anything outside the three patterns gets a question rather than a design.",
+        },
+        {
+          id: 'staying-honest',
+          title: 'Keeping the output honest',
+          table: {
+            headers: ['Rule', 'How it is enforced'],
+            rows: [
+              [
+                'Structured data, not free-form diagrams',
+                'Plans are JSON validated against a Zod schema. The app generates the Mermaid diagram itself from validated nodes and connections, with labels reduced to a safe character set; duplicate ids, dangling connections, self-loops, or free-form diagram text are rejected and no diagram is drawn. Diagrams export as SVG.',
+              ],
+              [
+                'Supported services only',
+                'A catalog of 41 AWS services. Anything outside it is removed from the diagram and reported as a validation warning.',
+              ],
+              [
+                'No fabricated citations',
+                'Plans may only cite ids from a curated registry of 56 official AWS documentation pages, including the Well-Architected Framework and its pillars. Unknown ids are stripped, and a claim left with no source is relabelled as an assumption.',
+              ],
+              [
+                "No confident answers it can't back up",
+                'Requests for exact costs, compliance determinations, "production-ready" designs or guaranteed uptime, and other clouds produce explicit cautions. Cost is described as drivers and tradeoffs, with links to AWS Pricing Calculator and AWS Budgets documentation — never dollar figures.',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'testing',
+          title: 'Testing',
+          body: "70 Vitest unit and API tests, run with no network access and no model calls. They check that incomplete requirements return questions and no plan; that out-of-catalog services are removed and flagged; that invalid diagram data is rejected, including through the HTTP API, which returns 422; that guardrail topics produce cautions, and that plans contain no dollar figures and never claim to be production-ready; that every citation is a real registry entry across all 1,728 combinations of the main requirement options for the three scenarios; that generated Mermaid parses with Mermaid itself, including labels containing hostile text; and that the same input always produces the same plan. A separate browser script, driven by Playwright, loads each sample, edits and regenerates a plan, exports the SVG, exercises the follow-up-question and guardrail paths, fails on console errors, checks for horizontal overflow at 1440, 1024, and 390 px, and captures screenshots.",
+        },
+        {
+          id: 'status-limitations',
+          title: 'Status & limitations',
+          body: "This is an MVP, not a finished product. A hosted demo is pending a deployment fix, so the project is listed as in progress; the repository runs locally in demo mode with no credentials or .env file. Scope is deliberately narrow: AWS only, single-Region designs, three patterns. It gives no cost estimates, makes no compliance determinations, doesn't design multi-Region disaster recovery, and doesn't check Region or model availability — it states those as assumptions to confirm. Citations point to overview pages that support the general practice cited, not every detail of a specific design, and there's no persistence or sign-in: requirements live in the browser tab. The planner sits behind a provider interface, and an optional server-side Anthropic Claude provider exists behind two environment variables, held to the same schema, catalog, citation, and guardrail checks. It is off by default, has not been exercised against the live API, and the tests never call it — everything described above runs on the deterministic demo planner.",
+        },
+      ],
+    },
+  },
 ]
 
 export function getProjectBySlug(slug) {

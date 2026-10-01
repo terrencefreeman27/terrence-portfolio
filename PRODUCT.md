@@ -52,6 +52,10 @@ A personal portfolio for Terrence Freeman that proves real, checkable work rathe
 - **Belle Menti Montessori School** — real client site for a licensed Montessori school in Hollywood, FL. Hand-coded HTML/CSS/JS, 9 pages, Netlify-hosted contact form, JS lightbox gallery, on-page SEO, deployed on the client's own domain.
   - Live: https://bellementimontessorihollywood.com
   - Repo: https://github.com/terrencefreeman27/belle-mont-montessori
+- **AWS Architecture Design Assistant** — MVP (built 2026-10-01) that turns business requirements into a reviewable AWS architecture plan and validated Mermaid diagram, using a deterministic demo planner. Added at Terrence's request 2026-10-01.
+  - Repo: https://github.com/terrencefreeman27/aws-architecture-assistant
+  - Hosted demo: https://aws-architecture-assistant.vercel.app/ — plan generation broken as of 2026-10-01; do not link it until verified working.
+  - Its optional Claude provider has not been exercised against the live API — this is not evidence of shipped AI work.
 - No other testimonials, metrics, employer history, or additional projects are confirmed. Do not fabricate any.
 
 ## Product Principles

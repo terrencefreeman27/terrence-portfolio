@@ -27,7 +27,7 @@ Each project is an object with (at minimum):
 
 ## Projects
 
-### CloudMart (featured, only project for now)
+### CloudMart (featured)
 
 - **Tagline:** Production-style AWS architecture for a small e-commerce app, built with Terraform while preparing for the AWS SAA-C03 exam.
 - **Status:** live demo (frontend only; backend intentionally undeployed for cost reasons)
@@ -48,6 +48,26 @@ Each project is an object with (at minimum):
 
 Full detail lives in `~/cloudmart-aws/README.md` and `~/cloudmart-aws/docs/*`.
 The case-study route ships as a placeholder in v1; copy gets filled in later.
+
+### AWS Architecture Design Assistant (added 2026-10-01)
+
+- **Slug:** `aws-architecture-assistant`
+- **Tagline:** An MVP workbench that turns plain-language business requirements into a reviewable AWS architecture plan and diagram — asking follow-up questions instead of guessing.
+- **Status:** `in-progress` — MVP built 2026-10-01. Hosted demo (https://aws-architecture-assistant.vercel.app/) loads but plan generation is broken as of 2026-10-01 (`/api` returns 404); fix pending on the source repo's `fix/client-side-demo` branch. `links.demo` stays `null` until the live demo is verified working, then flip status to `live-demo`.
+- **Stack:** React, Vite, TypeScript, Node.js/Express, Zod, Mermaid, Vitest, Playwright; grounded in AWS Well-Architected
+- **Links:**
+  - Demo: none yet (see status)
+  - Repo: https://github.com/terrencefreeman27/aws-architecture-assistant
+- **Case study sections (written, in `src/data/projects.js`):**
+  - Overview — who it's for, what it does, MVP framing, never touches AWS accounts
+  - How it works — completeness gating + follow-up questions, plan contents, deterministic demo planner with three sample scenarios, edit/regenerate
+  - Keeping the output honest (table) — Zod-validated plans + app-generated Mermaid, 41-service catalog, 56-source official AWS doc registry, guardrails (no cost figures, no compliance determinations, never "production-ready")
+  - Testing — 70 Vitest unit/API tests on `main` (89 on the pending fix branch; update when it merges) + Playwright browser e2e script
+  - Status & limitations — narrow scope, no estimates/compliance/DR, optional Claude provider exists but is off by default and not exercised against the live API
+- **Screenshots:** available in the source repo's `docs/screenshots/`, but the site has no project-image rendering yet (`heroImage` is unused), so none are copied in.
+
+Facts verified against the source repo's `main` branch on 2026-10-01. Do not
+describe the AI provider as live or the demo as working until each is verified.
 
 ## Homepage sections (v1 structure only, not fully designed)
 
