@@ -202,13 +202,9 @@ export const projects = [
       'An MVP workbench that turns plain-language business requirements into a reviewable AWS architecture plan and diagram — asking follow-up questions instead of guessing.',
     summary:
       'Built as an MVP on 2026-10-01, the assistant collects requirements, asks follow-up questions when something important is missing, and only then produces a structured plan: components, data flow, assumptions, Well-Architected considerations, alternatives, and an SVG-exportable diagram. Plans come from a deterministic demo planner covering three sample scenarios; output is schema-validated, limited to a 41-service catalog, and cites only a curated registry of official AWS documentation. It is a planning aid, not a provisioning tool — it never touches an AWS account and never calls its plans production-ready.',
-    // 'in-progress' with no demo link until the hosted demo works: as of
-    // 2026-10-01 the Vercel deployment loads but plan generation fails (its
-    // /api routes return 404), and the fix is not yet on the repo's main
-    // branch. Once it is verified live, set status to 'live-demo', set
-    // links.demo to 'https://aws-architecture-assistant.vercel.app/', and
-    // update the 'status-limitations' section below.
-    status: 'in-progress',
+    // Hosted demo verified generating plans on 2026-10-01 (planner runs in
+    // the browser; no backend on Vercel).
+    status: 'live-demo',
     stack: [
       'React',
       'Vite',
@@ -222,7 +218,7 @@ export const projects = [
       'AWS Well-Architected',
     ],
     links: {
-      demo: null,
+      demo: 'https://aws-architecture-assistant.vercel.app/',
       repo: 'https://github.com/terrencefreeman27/aws-architecture-assistant',
     },
     heroImage: null,
@@ -266,12 +262,12 @@ export const projects = [
         {
           id: 'testing',
           title: 'Testing',
-          body: "70 Vitest unit and API tests, run with no network access and no model calls. They check that incomplete requirements return questions and no plan; that out-of-catalog services are removed and flagged; that invalid diagram data is rejected, including through the HTTP API, which returns 422; that guardrail topics produce cautions, and that plans contain no dollar figures and never claim to be production-ready; that every citation is a real registry entry across all 1,728 combinations of the main requirement options for the three scenarios; that generated Mermaid parses with Mermaid itself, including labels containing hostile text; and that the same input always produces the same plan. A separate browser script, driven by Playwright, loads each sample, edits and regenerates a plan, exports the SVG, exercises the follow-up-question and guardrail paths, fails on console errors, checks for horizontal overflow at 1440, 1024, and 390 px, and captures screenshots.",
+          body: "89 Vitest unit and API tests, run with no network access and no model calls. They check that incomplete requirements return questions and no plan; that out-of-catalog services are removed and flagged; that invalid diagram data is rejected, including through the HTTP API, which returns 422; that guardrail topics produce cautions, and that plans contain no dollar figures and never claim to be production-ready; that every citation is a real registry entry across all 1,728 combinations of the main requirement options for the three scenarios; that generated Mermaid parses with Mermaid itself, including labels containing hostile text; that the same input always produces the same plan; that the in-browser planner returns exactly what the API returns for all three samples; and that the production bundle contains no model-provider code or API-key names. A separate browser script, driven by Playwright, loads each sample, edits and regenerates a plan, exports the SVG, exercises the follow-up-question and guardrail paths, fails on console errors, checks for horizontal overflow at 1440, 1024, and 390 px, and captures screenshots.",
         },
         {
           id: 'status-limitations',
           title: 'Status & limitations',
-          body: "This is an MVP, not a finished product. A hosted demo is pending a deployment fix, so the project is listed as in progress; the repository runs locally in demo mode with no credentials or .env file. Scope is deliberately narrow: AWS only, single-Region designs, three patterns. It gives no cost estimates, makes no compliance determinations, doesn't design multi-Region disaster recovery, and doesn't check Region or model availability — it states those as assumptions to confirm. Citations point to overview pages that support the general practice cited, not every detail of a specific design, and there's no persistence or sign-in: requirements live in the browser tab. The planner sits behind a provider interface, and an optional server-side Anthropic Claude provider exists behind two environment variables, held to the same schema, catalog, citation, and guardrail checks. It is off by default, has not been exercised against the live API, and the tests never call it — everything described above runs on the deterministic demo planner.",
+          body: "This is an MVP, not a finished product. The hosted demo runs the deterministic planner entirely in the browser, with no backend and no credentials; locally, the same planner also runs behind the Express API. Scope is deliberately narrow: AWS only, single-Region designs, three patterns. It gives no cost estimates, makes no compliance determinations, doesn't design multi-Region disaster recovery, and doesn't check Region or model availability — it states those as assumptions to confirm. Citations point to overview pages that support the general practice cited, not every detail of a specific design, and there's no persistence or sign-in: requirements live in the browser tab. The planner sits behind a provider interface, and an optional server-side Anthropic Claude provider exists behind two environment variables, held to the same schema, catalog, citation, and guardrail checks. It is off by default, has not been exercised against the live API, and the tests never call it — everything described above runs on the deterministic demo planner.",
         },
       ],
     },

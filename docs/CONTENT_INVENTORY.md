@@ -53,7 +53,7 @@ The case-study route ships as a placeholder in v1; copy gets filled in later.
 
 - **Slug:** `aws-architecture-assistant`
 - **Tagline:** An MVP workbench that turns plain-language business requirements into a reviewable AWS architecture plan and diagram — asking follow-up questions instead of guessing.
-- **Status:** `in-progress` — MVP built 2026-10-01. Hosted demo (https://aws-architecture-assistant.vercel.app/) loads but plan generation is broken as of 2026-10-01 (`/api` returns 404); fix pending on the source repo's `fix/client-side-demo` branch. `links.demo` stays `null` until the live demo is verified working, then flip status to `live-demo`.
+- **Status:** `live-demo` — MVP built 2026-10-01. Hosted demo (https://aws-architecture-assistant.vercel.app/) verified generating plans on 2026-10-01; the demo planner runs in the browser (source commit `904f104`).
 - **Stack:** React, Vite, TypeScript, Node.js/Express, Zod, Mermaid, Vitest, Playwright; grounded in AWS Well-Architected
 - **Links:**
   - Demo: none yet (see status)
@@ -62,7 +62,7 @@ The case-study route ships as a placeholder in v1; copy gets filled in later.
   - Overview — who it's for, what it does, MVP framing, never touches AWS accounts
   - How it works — completeness gating + follow-up questions, plan contents, deterministic demo planner with three sample scenarios, edit/regenerate
   - Keeping the output honest (table) — Zod-validated plans + app-generated Mermaid, 41-service catalog, 56-source official AWS doc registry, guardrails (no cost figures, no compliance determinations, never "production-ready")
-  - Testing — 70 Vitest unit/API tests on `main` (89 on the pending fix branch; update when it merges) + Playwright browser e2e script
+  - Testing — 89 Vitest unit/API tests on `main` (as of `904f104`) + Playwright browser e2e script
   - Status & limitations — narrow scope, no estimates/compliance/DR, optional Claude provider exists but is off by default and not exercised against the live API
 - **Screenshots:** available in the source repo's `docs/screenshots/`, but the site has no project-image rendering yet (`heroImage` is unused), so none are copied in.
 
