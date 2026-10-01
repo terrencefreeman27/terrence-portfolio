@@ -1,4 +1,5 @@
 import BackgroundGrid from './BackgroundGrid.jsx'
+import { RESUME_URL } from '../data/resume.js'
 
 export default function Footer() {
   return (
@@ -79,6 +80,31 @@ export default function Footer() {
                   <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.84v1.64h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.14V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21h-4V9Z" />
                 </svg>
                 LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="h-4 w-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M14.25 3v4.5a.75.75 0 0 0 .75.75h4.5M14.25 3H6.75A1.75 1.75 0 0 0 5 4.75v14.5A1.75 1.75 0 0 0 6.75 21h10.5A1.75 1.75 0 0 0 19 19.25V8.25L14.25 3Z"
+                  />
+                  <path strokeLinecap="round" d="M8.5 12.5h7M8.5 16h4.5" />
+                </svg>
+                Resume
               </a>
             </li>
           </ul>

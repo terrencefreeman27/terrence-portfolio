@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { RESUME_URL } from '../data/resume.js'
+
 const NAV_LINKS = [
   { href: '/#work', label: 'Work' },
   { href: '/#build', label: 'Build' },
   { href: '/#now', label: 'Now' },
+  // The resume is a static PDF, not a route — opened in a new tab so a
+  // reader skimming the site doesn't lose their place, and left to the
+  // browser's own viewer rather than forced as a download.
+  { href: RESUME_URL, label: 'Resume', external: true },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -54,6 +60,8 @@ export default function Header() {
             <a
               key={link.label}
               href={link.href}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noreferrer' : undefined}
               className="rounded-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
             >
               {link.label}
@@ -96,6 +104,8 @@ export default function Header() {
               <li key={link.label}>
                 <a
                   href={link.href}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noreferrer' : undefined}
                   onClick={() => setMenuOpen(false)}
                   className="block rounded-sm py-2 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
                 >
