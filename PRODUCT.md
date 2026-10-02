@@ -55,6 +55,7 @@ A personal portfolio for Terrence Freeman that proves real, checkable work rathe
 - **AWS Architecture Design Assistant** — MVP (built 2026-10-01) that turns business requirements into a reviewable AWS architecture plan and validated Mermaid diagram, using a deterministic demo planner. Added at Terrence's request 2026-10-01.
   - Repo: https://github.com/terrencefreeman27/aws-architecture-assistant
   - Hosted demo: https://aws-architecture-assistant.vercel.app/ — verified generating plans on 2026-10-01 (demo planner runs in the browser).
+  - Shipped 2026-10-01 and verified live: share links (URL fragment) + autosave, Markdown report export, official AWS Architecture Icons in the diagram, plain-language questions with "Not sure" conservative defaults, plan summary bar, mobile layout. 180 tests; 96 browser checks pass against the live site.
   - Its optional Claude provider has not been exercised against the live API — this is not evidence of shipped AI work.
 - No other testimonials, metrics, employer history, or additional projects are confirmed. Do not fabricate any.
 
