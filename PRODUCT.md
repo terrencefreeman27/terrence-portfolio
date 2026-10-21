@@ -56,6 +56,7 @@ A personal portfolio for Terrence Freeman that proves real, checkable work rathe
   - Repo: https://github.com/terrencefreeman27/aws-architecture-assistant
   - Hosted demo: https://aws-architecture-assistant.vercel.app/ — verified generating plans on 2026-10-01 (demo planner runs in the browser).
   - Shipped 2026-10-01 and verified live: share links (URL fragment) + autosave, Markdown report export, official AWS Architecture Icons in the diagram, plain-language questions with "Not sure" conservative defaults, plan summary bar, mobile layout. 180 tests; 96 browser checks pass against the live site.
+  - Shipped 2026-10-21 and verified live: data-pipeline and scheduled-jobs patterns (5 total), drawn alternative diagrams with computed what-changes, 46-service catalog, 61 verified sources, 316 tests, GitHub Actions CI. Also a local MCP server and CLI (developer channels, not hosted, not on npm).
   - Its optional Claude provider has not been exercised against the live API — this is not evidence of shipped AI work.
 - No other testimonials, metrics, employer history, or additional projects are confirmed. Do not fabricate any.
 

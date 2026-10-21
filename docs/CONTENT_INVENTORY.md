@@ -61,8 +61,8 @@ The case-study route ships as a placeholder in v1; copy gets filled in later.
 - **Case study sections (written, in `src/data/projects.js`):**
   - Overview — who it's for, what it does, MVP framing, never touches AWS accounts
   - How it works — completeness gating + follow-up questions, plan contents, deterministic demo planner with three sample scenarios, edit/regenerate
-  - Keeping the output honest (table) — Zod-validated plans + app-generated Mermaid, 41-service catalog, 56-source official AWS doc registry, guardrails (no cost figures, no compliance determinations, never "production-ready")
-  - Testing — 180 Vitest unit/API tests on `main` (as of `a1ede1c`) + Playwright browser e2e script
+  - Keeping the output honest (table) — Zod-validated plans + app-generated Mermaid, 46-service catalog, 61-source official AWS doc registry, guardrails (no cost figures, no compliance determinations, never "production-ready")
+  - Testing — 316 Vitest unit/API tests on `main` (as of `c8d3398`), CI on GitHub Actions + Playwright browser e2e script
   - Status & limitations — narrow scope, no estimates/compliance/DR, optional Claude provider exists but is off by default and not exercised against the live API
 - **Screenshots:** available in the source repo's `docs/screenshots/`, but the site has no project-image rendering yet (`heroImage` is unused), so none are copied in.
 
