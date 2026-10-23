@@ -11,7 +11,6 @@
 //   stack       — array of tech/service tags
 //   links       — { demo, repo } — either may be null
 //   heroImage   — placeholder for now (no real asset yet)
-//   architectureDiagram — optional bool; true only for infra-heavy projects
 //                 that have a real architecture diagram to show (currently
 //                 just CloudMart). Omitted/false means the featured-projects
 //                 layout skips that visual entirely rather than showing a
@@ -64,7 +63,6 @@ export const projects = [
       repo: 'https://github.com/terrencefreeman27/cloudmart-aws',
     },
     heroImage: null,
-    architectureDiagram: true,
     caseStudy: {
       sections: [
         {

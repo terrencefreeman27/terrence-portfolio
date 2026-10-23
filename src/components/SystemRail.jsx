@@ -3,7 +3,7 @@
 // borrowed from technical/architectural drawings rather than UI chrome.
 // It appears literally (this component) along the edge of a handful of
 // major sections, and its grammar — straight lines, ticks, coordinate
-// labels — is what `HeroGraphic` and `ArchitectureDiagram` echo internally,
+// labels — is what `HeroGraphic` echoes internally,
 // so the whole site reads as one system rather than several unrelated
 // decorative ideas.
 //
