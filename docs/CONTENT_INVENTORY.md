@@ -69,6 +69,29 @@ The case-study route ships as a placeholder in v1; copy gets filled in later.
 Facts verified against the source repo's `main` branch on 2026-10-01. Do not
 describe the AI provider as live or the demo as working until each is verified.
 
+### ResolveOps (added 2026-10-23)
+
+- **Slug:** `resolveops`
+- **Tagline:** An AI support-operations agent prototype: the model drafts cited answers from account data and company policy, and application code decides what is allowed to happen.
+- **Status:** `runs-locally` (new status, label "Runs locally") — complete, public source, but a local Docker Compose app with no hosted deployment. Neither `live-demo` nor `in-progress` was accurate.
+- **Stack:** Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, pgvector, fastembed, Claude API, React, TypeScript, Tailwind CSS, Docker Compose, pytest, Playwright
+- **Links:**
+  - Demo: none (not deployed)
+  - Repo: https://github.com/terrencefreeman27/resolveops
+- **Case study sections (written, in `src/data/projects.js`):**
+  - Overview — the support problem, propose/approve model, two fictional companies
+  - How it works — state machine, server-scoped typed tools, local embeddings + pgvector, live Claude loop vs. labelled simulated demo mode
+  - Where code, not the model, decides (table) — identity, injection, approval versioning, stale-policy invalidation, evidence guard, rules/citations, idempotent execution
+  - Evaluation — 50-case live eval (Haiku 5.5, 2 runs) and prompt-only baseline, with the not-human-reviewed and not-a-capability-comparison caveats
+  - Testing — 127 backend tests, 64/64 deterministic checks, live smoke 4/4, 50 browser checks; fakes called out
+  - What I learned — prompt-cache token budget bug found by the live eval, evidence-threshold calibration finding, why safety lives in code
+  - Status & limitations — local only, GitHub adapter unverified, labels not human-reviewed, single-instance limits, no reply sending
+- **Screenshots:** in the source repo's `docs/screenshots/`; not copied in (`heroImage` is still unused).
+
+Facts verified against the source repo's `main` (`c31a505`) on 2026-10-23.
+Do not describe the GitHub Issues adapter as working against real GitHub, or
+the eval labels as human-reviewed, until each is verified.
+
 ## Homepage sections (v1 structure only, not fully designed)
 
 1. **Hero** — name/role, one-line positioning, primary CTA (view work / contact)

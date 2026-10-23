@@ -27,12 +27,12 @@ A personal portfolio for Terrence Freeman that proves real, checkable work rathe
 
 - Terrence is a Computer Science senior at the University of Central Florida, graduating May 2027.
 - Currently preparing for the AWS Certified Solutions Architect – Associate (SAA-C03) exam; CloudMart (the featured infra project) exists as a vehicle for that prep.
-- Two pieces of real evidence exist today: CloudMart (self-directed AWS/Terraform case study) and Belle Menti Montessori School (a real, live client engagement). See Evidence on Hand.
+- Four pieces of real evidence exist today: CloudMart (self-directed AWS/Terraform case study), Belle Menti Montessori School (a real, live client engagement), the AWS Architecture Design Assistant (MVP with a hosted demo), and ResolveOps (local AI support-operations prototype). See Evidence on Hand.
 
 ## Capabilities and Constraints
 
 - Confirmed skills to reflect: AWS architecture (VPC, EC2, ALB, ASG, RDS, S3, CloudFront, IAM, Secrets Manager, Systems Manager, CloudWatch/SNS), Terraform/IaC, React, Node.js/Express, PostgreSQL.
-- AI/LLM tooling and automation is an active area of *interest* to reflect, not a shipped track record — no AI-specific case study exists yet, so it should not be framed as delivered experience.
+- AI/LLM tooling and automation is an active area of interest. ResolveOps (added 2026-10-23) is a real AI case study, but it is a local prototype evaluated on synthetic cases — not a deployed product with real users — so do not frame it as production or delivered-to-customers AI experience.
 - Hard constraint from Terrence: do not invent additional experience, credentials, metrics, employers, testimonials, project results, social links, or personal details beyond what is recorded in this file. Any additional fact must be marked unresolved here and confirmed with Terrence before it's used anywhere on the site.
 
 ## Brand Commitments
@@ -58,6 +58,12 @@ A personal portfolio for Terrence Freeman that proves real, checkable work rathe
   - Shipped 2026-10-01 and verified live: share links (URL fragment) + autosave, Markdown report export, official AWS Architecture Icons in the diagram, plain-language questions with "Not sure" conservative defaults, plan summary bar, mobile layout. 180 tests; 96 browser checks pass against the live site.
   - Shipped 2026-10-21 and verified live: data-pipeline and scheduled-jobs patterns (5 total), drawn alternative diagrams with computed what-changes, 46-service catalog, 61 verified sources, 316 tests, GitHub Actions CI. Also a local MCP server and CLI (developer channels, not hosted, not on npm).
   - Its optional Claude provider has not been exercised against the live API — this is not evidence of shipped AI work.
+- **ResolveOps** — AI support-operations agent prototype (FastAPI, PostgreSQL + pgvector, local fastembed embeddings, React/TypeScript/Tailwind, Docker Compose). The model proposes; code enforces identity, tool permissions, approval versioning, stale-policy invalidation, the evidence guard, and idempotent execution. Added at Terrence's request 2026-10-23; facts verified against the repo's `main` (`c31a505`).
+  - Repo (public): https://github.com/terrencefreeman27/resolveops
+  - No hosted demo: local Docker Compose app only (site status `runs-locally`).
+  - Live mode verified against the real Claude API on 2026-10-23 with `claude-haiku-5-5` (smoke test 4/4). Live eval, 2 runs on 50 synthetic cases: next action 72–74%, classification 88–90%, citations 100% valid, 0 safety violations, 0 under-escalations, 5–6 over-escalations, median ~11 s. Prompt-only baseline ~50% / 92% (not a capability comparison). **Labels are agent-written and not human-reviewed** — always say so when citing these numbers.
+  - 127 backend tests, 64/64 deterministic backend checks, 50 browser checks.
+  - GitHub Issues adapter is **unverified against real GitHub** (fake transport only). Single-instance rate limiting.
 - No other testimonials, metrics, employer history, or additional projects are confirmed. Do not fabricate any.
 
 ## Product Principles

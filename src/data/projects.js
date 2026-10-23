@@ -5,7 +5,9 @@
 //   name        — display name
 //   tagline     — one-line summary (card + hero)
 //   summary     — 2-4 sentence description (card back / list view)
-//   status      — 'live-demo' | 'in-progress' | 'archived'
+//   status      — 'live-demo' | 'runs-locally' | 'in-progress' | 'archived'
+//                 'runs-locally' = complete and public source, but not hosted
+//                 anywhere; it runs on your own machine (e.g. Docker Compose).
 //   stack       — array of tech/service tags
 //   links       — { demo, repo } — either may be null
 //   heroImage   — placeholder for now (no real asset yet)
@@ -25,6 +27,7 @@
 
 export const STATUS_LABELS = {
   'live-demo': 'Live demo',
+  'runs-locally': 'Runs locally',
   'in-progress': 'In progress',
   archived: 'Archived',
 }
@@ -268,6 +271,110 @@ export const projects = [
           id: 'status-limitations',
           title: 'Status & limitations',
           body: "This is an MVP, not a finished product. The hosted demo runs the deterministic planner entirely in the browser, with no backend and no credentials; locally, the same planner also runs behind the Express API. Scope is deliberately narrow: AWS only, single-Region designs, five patterns. It gives no cost estimates, makes no compliance determinations, doesn't design multi-Region disaster recovery, and doesn't check Region or model availability — it states those as assumptions to confirm. Citations point to overview pages that support the general practice cited, not every detail of a specific design, and there's no persistence or sign-in: requirements live in the browser tab. The planner sits behind a provider interface, and an optional server-side Anthropic Claude provider exists behind two environment variables, held to the same schema, catalog, citation, and guardrail checks. It is off by default, has not been exercised against the live API, and the tests never call it — everything described above runs on the deterministic demo planner.",
+        },
+      ],
+    },
+  },
+  {
+    slug: 'resolveops',
+    name: 'ResolveOps',
+    tagline:
+      'An AI support-operations agent prototype: the model drafts cited answers from account data and company policy, and application code decides what is allowed to happen.',
+    summary:
+      'ResolveOps reads a B2B support request, looks up the authorized customer\'s account through typed tools, retrieves the company\'s policy documents with embedding search, and drafts a structured, cited proposal to resolve, clarify, or escalate. A human edits, approves, or rejects it; only approved ticket actions run, each exactly once, and every step is audited. It runs locally with Docker Compose: demo mode uses clearly labelled simulated AI and needs no keys, and live mode with Claude was verified against the real API on 2026-10-23.',
+    // Not hosted anywhere: a local Docker Compose app with a public repo, so
+    // there is no demo link. Facts verified against the source repo's main
+    // (c31a505) on 2026-10-23.
+    status: 'runs-locally',
+    stack: [
+      'Python',
+      'FastAPI',
+      'SQLAlchemy',
+      'Alembic',
+      'PostgreSQL',
+      'pgvector',
+      'fastembed',
+      'Claude API',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'Docker Compose',
+      'pytest',
+      'Playwright',
+    ],
+    links: {
+      demo: null,
+      repo: 'https://github.com/terrencefreeman27/resolveops',
+    },
+    heroImage: null,
+    caseStudy: {
+      sections: [
+        {
+          id: 'overview',
+          title: 'Overview',
+          body: "Support answers at a B2B software company usually depend on two lookups: this customer's account (plan, roles, invoices, open tickets) and the company's current policy documents. ResolveOps does both and drafts a structured proposal with the evidence attached: a next action (resolve, clarify, or escalate), a reply, a ticket action, and citations. A reviewer then edits, approves, or rejects it, and nothing happens until they approve. The rule throughout is that the AI proposes and application code decides. Two fictional companies are preloaded as separate workspaces, Northstar Analytics and Lumen Ledger, with different plans and policies; every customer is synthetic. Reviewers can also create new workspaces and import their own Markdown or plain-text documentation.",
+        },
+        {
+          id: 'how-it-works',
+          title: 'How it works',
+          body: "A FastAPI backend runs each request through an explicit state machine: classify, call tools, retrieve, apply escalation rules, draft, then wait for review. Tools are typed and scoped by a context the server builds from the request, so the workspace and customer always come from the server session, never from the message or the model. Retrieval is pgvector cosine search over the workspace's own document sections, embedded locally with bge-small (384 dimensions), so it is real semantic search in both modes with no paid embeddings API. In live mode, Claude (claude-haiku-5-5 by default) decides which allowlisted tools to call; every call passes a code-side gate, the loop is capped by tool-step and token limits, and the final answer must match a JSON schema and is validated again on the server. Live mode is limited to signed-in reviewers, with rate, concurrency, and monthly budget limits. In demo mode a deterministic simulated provider, labelled \"Simulated AI — demo mode\" in the UI, stands in for the model; retrieval, tools, rules, approval, execution, and the audit log are all real. The same \"we upgraded but can't access reporting\" or \"charged twice\" message gets a different, differently cited answer in each company, because the answer comes from that company's account data and documents.",
+        },
+        {
+          id: 'code-decides',
+          title: 'Where code, not the model, decides',
+          table: {
+            headers: ['Concern', 'How it is enforced'],
+            rows: [
+              [
+                'Identity and permissions',
+                "Workspace and customer ids come from server sessions. The tool gate refuses tools outside the allowlist, authority arguments such as customer_id, and other customers' tickets; each refusal is audited and shown to the reviewer.",
+              ],
+              [
+                'Prompt injection',
+                'Customer messages and retrieved passages are wrapped and escaped as untrusted data. That is defence in depth only: tests drive a fake model scripted to obey injected instructions and check that code still blocks approval, refunds, and cross-customer access.',
+              ],
+              [
+                'Approval',
+                'Bound to one exact proposal version plus a hash of its action. Editing creates a new version and invalidates earlier approvals.',
+              ],
+              [
+                'Policy changes',
+                'Each proposal records the document versions it retrieved and cited. Replacing or deleting one marks every pending proposal that used it stale in the same database transaction; stale proposals cannot be approved and must be reprocessed against current documents. Changing escalation rules does the same.',
+              ],
+              [
+                'Weak or conflicting evidence',
+                'If no passage reaches the relevance threshold, or two current documents declare different values for the same policy fact, a drafted resolve becomes an escalation, and a reviewer edit cannot turn it back.',
+              ],
+              [
+                'Rules and citations',
+                'Escalation rules are evaluated in code and override the draft. Citations survive only if the passage was retrieved for this request.',
+              ],
+              [
+                'Execution',
+                'An idempotency key backed by UNIQUE constraints means double clicks, concurrent approvals, lost responses, and retries all produce exactly one ticket. A failed model call ends in an error state and is never replaced with simulated output.',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'evaluation',
+          title: 'Evaluation',
+          body: "A 50-case synthetic dataset covers normal and ambiguous requests, insufficient and conflicting evidence, outdated policy, prompt injection, cross-workspace and cross-customer attempts, API failures, and duplicate execution. The labels were written by the build agent and have not been human-reviewed, so some misses may be label disagreements rather than model errors. Run live twice with Claude Haiku 5.5 on 2026-10-23: correct next action on 72–74% of all 50 cases, classification 88–90%, every citation valid (it exists, was retrieved for that request, and is the current version), 0 safety-rule violations, 0 under-escalations, 5–6 over-escalations, and a median latency of about 11 seconds. A prompt-only baseline, the same model given only the customer's message, chose the right next action about 50% of the time with 92% classification. That is not a capability comparison: the baseline cannot see account facts or company policy by construction, so the gap measures the value of that context and the guards. Fifty cases and two runs are a smoke-level signal, not a benchmark, and the causes of the individual over-escalations have not been analysed yet.",
+        },
+        {
+          id: 'testing',
+          title: 'Testing',
+          body: "127 backend tests run against a real PostgreSQL database, with 5 opt-in smoke tests that need real credentials deselected by default. A deterministic subset of 64, grouped into authorization, workspace and customer isolation, visitor sandboxes, approval versioning, stale evidence, the evidence guard, duplicate prevention, injection, and failures without fallback, passes 64/64. Live-provider failure and attack cases use a scripted fake Anthropic client, and the GitHub adapter tests use a fake HTTP transport; they prove what the server does with those responses, not how the real services behave. The live smoke test against the real Claude API passed 4/4 on 2026-10-23. 50 browser checks in headless Chromium cover the demo scenarios, approvals, stale proposals, isolation between visitor sandboxes, the dashboard, and horizontal overflow at 1440, 1024, and 390 px.",
+        },
+        {
+          id: 'what-i-learned',
+          title: 'What I learned',
+          body: "The first live evaluation exposed a real bug. With prompt caching on, almost all input arrives as cache reads and writes, and those tokens were recorded but not counted toward the monthly token and dollar budgets, the per-request token cap, the dashboard cost estimate, or the eval totals; the first run reported 366 input tokens across 45 runs. Usage now counts uncached, cache-read, and cache-write input, with a regression test; the accuracy numbers from that run were unaffected. A retrieval probe that used raw customer wording as the search query found that the 0.72 evidence threshold, calibrated on focused queries, leaves 12 of 32 answerable cases below it. The guard fails safe, escalating rather than resolving, but it over-escalates and needs re-calibrating on live query logs before any pilot. And approval, authorization, and evidence checks live in ordinary code rather than the prompt because the model can be wrong or manipulated through a message or a document; the system prompt is defence in depth, and the safety properties are enforced the same way whichever model is configured.",
+        },
+        {
+          id: 'status-limitations',
+          title: 'Status & limitations',
+          body: "ResolveOps is a local Docker Compose app, not deployed publicly, so there is no live demo link; the repository's quick start runs demo mode with no API keys. Live mode has been verified only with claude-haiku-5-5; other models are configurable but untested live. Approved tickets go to an internal ticket adapter. A GitHub Issues adapter exists (fixed host, allowlisted repository, hidden-marker idempotency), but it has been tested only against a fake HTTP transport and never run against real GitHub. Evaluation and citation-support labels are agent-written and not human-reviewed, and there is no LLM judge. Rate and concurrency limits assume a single API instance, and ticket execution runs synchronously inside the approve request, with no job queue. Conflict detection sees only policy facts that documents declare with markers, not contradictions in prose. Approved replies are recorded but never sent; there is no email or chat channel. Demo mode answers only the seeded scenario wordings, so it cannot show how a model handles new text. The README lists what a real pilot would still need, including a real identity provider, human-labelled evaluation on real de-identified tickets, a real ticketing integration, multi-instance operation, and PII handling.",
         },
       ],
     },
