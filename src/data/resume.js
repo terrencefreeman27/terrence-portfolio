@@ -3,4 +3,4 @@
 // Lives in `public/` (not imported/hashed by Vite) so the URL stays stable
 // and shareable — a recruiter can be sent the link directly.
 export const RESUME_URL = '/Terrence-Freeman-Resume.pdf'
-export const RESUME_UPDATED = 'September 2026'
+export const RESUME_UPDATED = 'October 2026'

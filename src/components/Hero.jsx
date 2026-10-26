@@ -1,5 +1,4 @@
 import BackgroundGrid from './BackgroundGrid.jsx'
-import HeroGraphic from './HeroGraphic.jsx'
 import SystemRail from './SystemRail.jsx'
 
 export default function Hero() {
@@ -37,10 +36,29 @@ export default function Hero() {
         </div>
 
         <div className="animate-fade-up [animation-delay:400ms]">
-          <div className="relative mx-auto aspect-square w-full max-w-md border-t border-white/10 pt-6">
-            <HeroGraphic />
-          </div>
-          <p className="mt-5 text-center font-mono text-xs uppercase tracking-widest text-slate-500 sm:text-left">
+          {/* Portrait in place of the abstract graphic, framed with the
+              site's hairline border and corner ticks. Above the fold, so it
+              loads eagerly with high priority. */}
+          <figure className="relative mx-auto w-full max-w-[18rem] sm:max-w-sm">
+            <img
+              src="/terrence-freeman.jpg"
+              alt="Portrait of Terrence Freeman"
+              width="900"
+              height="1200"
+              fetchPriority="high"
+              decoding="async"
+              className="aspect-[3/4] w-full border border-white/10 object-cover"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-2 -top-2 h-4 w-4 border-l border-t border-accent-light/70"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-2 -right-2 h-4 w-4 border-b border-r border-white/25"
+            />
+          </figure>
+          <p className="mx-auto mt-6 max-w-sm text-center font-mono text-xs uppercase tracking-widest text-slate-500 sm:text-left">
             Cloud
             <span className="mx-2 text-slate-700">/</span>
             Terraform
