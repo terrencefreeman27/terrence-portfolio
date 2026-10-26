@@ -21,13 +21,37 @@ export default function About() {
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
           <div className="max-w-2xl">
-            <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
-              I'm a Computer Science senior at the University of Central
-              Florida, graduating in May 2027. I build practical cloud,
-              software, and AI-assisted systems, with experience spanning
-              AWS architecture, Terraform, full-stack development, and
-              production websites.
-            </p>
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+              {/* Portrait framed with the same hairline border and corner
+                  ticks used elsewhere on the site, sized to sit beside the
+                  bio rather than compete with the section heading. */}
+              <figure className="relative w-32 shrink-0 sm:w-40">
+                <img
+                  src="/terrence-freeman.jpg"
+                  alt="Portrait of Terrence Freeman"
+                  width="720"
+                  height="960"
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[3/4] w-full border border-white/10 object-cover"
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -left-1.5 -top-1.5 h-3 w-3 border-l border-t border-accent-light/70"
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -bottom-1.5 -right-1.5 h-3 w-3 border-b border-r border-white/25"
+                />
+              </figure>
+              <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
+                I'm a Computer Science senior at the University of Central
+                Florida, graduating in May 2027. I build practical cloud,
+                software, and AI-assisted systems, with experience spanning
+                AWS architecture, Terraform, full-stack development, and
+                production websites.
+              </p>
+            </div>
 
             {/* The full résumé belongs with the background copy rather than
                 the hero — someone who has read this far is the one who
